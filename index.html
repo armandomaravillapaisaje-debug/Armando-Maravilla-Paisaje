@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Armando Maravilla · Paisaje y cartografía de lo cotidiano</title>
+<meta name="description" content="Arquitecto paisajista y cronista visual de la Ciudad de México. Diseño de paisaje, cartografía de lo cotidiano y Nativas de las Calles.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Armando Maravilla · Paisaje y cartografía de lo cotidiano">
+<meta property="og:description" content="Arquitecto paisajista y cronista visual de la Ciudad de México. Diseño de paisaje, cartografía de lo cotidiano y Nativas de las Calles.">
+<meta property="og:image" content="retrato-barranca.jpg">
+<meta property="og:locale" content="es_MX">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Piazzolla:ital,opsz,wght@0,8..30,400;0,8..30,500;0,8..30,600;1,8..30,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Layout: hero topográfico de barranca → acerca de mí → mapa de proyectos (etiqueta de sección a la izquierda, índice a la derecha) → contacto */
+  :root{
+    --bg:#FFFFFF; --ink:#1D3A52; --ink-dim:#5C7488; --line:#D7DEE3;
+    --tile-bg:#F3F5F6; --accent:#6E93AC; --oxide:#C15A34; --leaf:#5E7F5A;
+    --nav-bg:rgba(255,255,255,0.92); --tag-bg:rgba(255,255,255,0.92);
+    --serif:'Piazzolla', Georgia, 'Times New Roman', serif;
+    --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#142534; --ink:#EDE7DA; --ink-dim:#B4B8B0; --line:#2C465C;
+      --tile-bg:#1D3A52; --accent:#86A9C0; --oxide:#D9774F; --leaf:#9BB08A;
+      --nav-bg:rgba(20,37,52,0.9); --tag-bg:rgba(20,37,52,0.88); color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#142534; --ink:#EDE7DA; --ink-dim:#B4B8B0; --line:#2C465C;
+    --tile-bg:#1D3A52; --accent:#86A9C0; --oxide:#D9774F; --leaf:#9BB08A;
+    --nav-bg:rgba(20,37,52,0.9); --tag-bg:rgba(20,37,52,0.88); color-scheme:dark;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; background:var(--bg); color:var(--ink); overflow-x:hidden; }
+  body{ font-family:var(--serif); line-height:1.6; font-size:16px; }
+  .mono{ font-family:var(--mono); }
+  a{ color:inherit; }
+  a:focus-visible{ outline:2px solid var(--oxide); outline-offset:3px; }
+  .wrap{ max-width:1080px; margin:0 auto; padding-inline:clamp(16px,5vw,56px); }
+
+  /* nav */
+  nav{ position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--nav-bg); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; height:56px; }
+  nav .name{ font-weight:600; font-size:0.98rem; text-decoration:none; }
+  nav ul{ list-style:none; display:flex; gap:clamp(12px,2.4vw,28px); margin:0; padding:0; font-size:0.76rem; }
+  nav ul a{ text-decoration:none; color:var(--ink-dim); }
+  nav ul a:hover{ color:var(--ink); }
+
+  /* hero */
+  .hero{ position:relative; overflow:hidden; padding-block:clamp(64px,13vw,132px) clamp(52px,9vw,88px); border-bottom:1px solid var(--line); }
+  .hero canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .hero .veil{ position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 82%, transparent) 38%, color-mix(in srgb, var(--bg) 20%, transparent) 68%, transparent 100%); }
+  @media (max-width:700px){
+    .hero{ padding-top:250px; }
+    .hero canvas, .hero .veil{ bottom:auto; height:230px; }
+    .hero .veil{ background:linear-gradient(180deg, transparent 0%, transparent 60%, var(--bg) 100%); }
+    nav .name{ font-size:0.9rem; }
+    nav ul{ gap:12px; font-size:0.7rem; }
+  }
+  .hero-inner{ position:relative; }
+  .coord{ font-size:0.72rem; color:var(--accent); margin:0 0 22px; letter-spacing:0.02em; }
+  h1{ margin:0 0 22px; font-weight:500; font-size:clamp(2.1rem,6.2vw,3.9rem); line-height:1.08; max-width:15ch; text-wrap:balance; }
+  h1 em{ font-weight:400; color:var(--ink-dim); }
+  .hero .sub{ max-width:48ch; color:var(--ink-dim); font-size:clamp(1.02rem,1.6vw,1.18rem); margin:0; }
+  .hero .jump{ display:inline-block; margin-top:30px; font-size:0.76rem; color:var(--oxide); text-decoration:none; border-bottom:1px solid var(--oxide); }
+
+  section{ padding-block:clamp(52px,8vw,88px); border-bottom:1px solid var(--line); }
+  .eyebrow{ display:block; font-size:0.74rem; color:var(--accent); margin-bottom:10px; letter-spacing:0.03em; }
+  h2{ font-weight:500; font-size:clamp(1.5rem,3.2vw,2.1rem); line-height:1.15; margin:0; text-wrap:balance; }
+  .prose{ max-width:60ch; color:var(--ink-dim); margin:0; font-size:1.02rem; }
+  .prose strong{ color:var(--ink); font-weight:600; }
+  .stack{ display:flex; flex-direction:column; gap:16px; min-width:0; }
+
+  /* placeholders */
+  .img{ position:relative; aspect-ratio:4/3; max-width:100%; border:1px solid var(--line); background-color:var(--tile-bg);
+        background-image:repeating-linear-gradient(25deg, color-mix(in srgb, var(--leaf) 22%, transparent) 0 2px, transparent 2px 20px); }
+  .img.alt{ background-image:repeating-linear-gradient(-35deg, color-mix(in srgb, var(--oxide) 20%, transparent) 0 2px, transparent 2px 22px); }
+  .img.map{ background-image:repeating-linear-gradient(0deg, color-mix(in srgb, var(--accent) 38%, transparent) 0 1px, transparent 1px 30px), repeating-linear-gradient(90deg, color-mix(in srgb, var(--accent) 38%, transparent) 0 1px, transparent 1px 30px); }
+  .img .tag{ position:absolute; bottom:8px; left:8px; width:fit-content; max-width:calc(100% - 16px); font-size:0.62rem; line-height:1.4; padding:4px 8px; background:var(--tag-bg); border:1px solid var(--line); color:var(--ink-dim); }
+
+  /* acerca */
+  .about{ display:grid; grid-template-columns:1fr; gap:clamp(28px,5vw,56px); align-items:start; }
+  @media (min-width:900px){ .about{ grid-template-columns:1fr 1fr; align-items:center; } }
+  .portrait{ margin:0; display:flex; flex-direction:column; gap:10px; min-width:0; }
+  .portrait img{ display:block; width:100%; height:auto; aspect-ratio:1084/724; object-fit:cover; border:1px solid var(--line); }
+  .portrait figcaption{ font-size:0.66rem; color:var(--ink-dim); }
+  .facts{ list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; }
+  .facts li{ display:grid; grid-template-columns:8.5rem 1fr; gap:16px; padding-block:10px; border-top:1px solid var(--line); font-size:0.92rem; }
+  .facts li:last-child{ border-bottom:1px solid var(--line); }
+  .facts .k{ font-family:var(--mono); font-size:0.7rem; color:var(--accent); padding-top:3px; }
+  @media (max-width:480px){ .facts li{ grid-template-columns:1fr; gap:2px; } }
+
+  /* mapa de proyectos */
+  .map-head{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:end; gap:16px 32px; margin-bottom:clamp(28px,4vw,44px); }
+  .legend{ display:flex; flex-wrap:wrap; gap:8px 18px; font-size:0.68rem; color:var(--ink-dim); margin:0; padding:0; list-style:none; }
+  .legend li{ display:flex; align-items:center; gap:6px; }
+  .dot{ width:8px; height:8px; border-radius:50%; border:1px solid var(--ink-dim); flex:none; }
+  .dot.prep{ background:var(--oxide); border-color:var(--oxide); }
+  .dot.ext{ background:var(--accent); border-color:var(--accent); }
+
+  .area{ display:grid; grid-template-columns:1fr; gap:22px 48px; padding-block:clamp(32px,5vw,48px); border-top:1px solid var(--line); }
+  @media (min-width:820px){ .area{ grid-template-columns:0.85fr 1.15fr; } }
+  .area-label{ display:flex; flex-direction:column; gap:14px; min-width:0; }
+  .area-label h3{ margin:0; font-weight:600; font-size:clamp(1.25rem,2.4vw,1.5rem); line-height:1.2; }
+  .area-label .count{ font-family:var(--mono); font-size:0.7rem; color:var(--accent); }
+  .area-label .img{ aspect-ratio:16/10; }
+  .area[data-c="oxide"] h3{ color:var(--oxide); }
+  .area[data-c="leaf"] h3{ color:var(--leaf); }
+
+  .plist{ list-style:none; margin:0; padding:0; min-width:0; }
+  .plist li{ display:grid; grid-template-columns:12px 1fr auto; gap:14px; align-items:baseline; padding-block:13px; border-bottom:1px dashed var(--line); }
+  .plist li:first-child{ padding-top:0; }
+  .plist .dot{ transform:translateY(-1px); }
+  .plist .t{ font-size:1.02rem; min-width:0; }
+  .plist .d{ display:block; margin-top:6px; font-size:0.9rem; line-height:1.5; color:var(--ink-dim); max-width:56ch; }
+  .plist .t small{ display:block; font-family:var(--mono); font-size:0.68rem; color:var(--ink-dim); margin-top:2px; }
+  .plist .s{ font-family:var(--mono); font-size:0.66rem; color:var(--ink-dim); white-space:nowrap; }
+  .plist li.prep .s{ color:var(--oxide); }
+  .plist a{ text-decoration:none; border-bottom:1px solid var(--accent); }
+  .plist a:hover{ color:var(--oxide); border-color:var(--oxide); }
+  @media (max-width:520px){ .plist li{ grid-template-columns:12px 1fr; } .plist .s{ grid-column:2; } }
+
+  .out{ display:inline-flex; align-items:center; gap:10px; margin-top:18px; padding:10px 16px; border:1px solid var(--leaf); color:var(--ink); text-decoration:none; font-size:0.84rem; width:fit-content; }
+  .out:hover{ background:var(--leaf); color:var(--bg); }
+
+  /* equipo */
+  .team{ display:grid; grid-template-columns:1fr; gap:24px 48px; }
+  @media (min-width:780px){ .team{ grid-template-columns:0.85fr 1.15fr; } }
+  .people{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .people li{ display:flex; flex-direction:column; gap:4px; padding-block:16px; border-top:1px solid var(--line); }
+  .people li:last-child{ border-bottom:1px solid var(--line); }
+  .people .n{ font-size:1.12rem; font-weight:600; }
+  .people .r{ font-family:var(--mono); font-size:0.7rem; color:var(--accent); }
+  .people p{ margin:4px 0 0; color:var(--ink-dim); font-size:0.95rem; max-width:56ch; }
+
+  /* contacto */
+  .contact{ display:grid; grid-template-columns:1fr; gap:28px 48px; align-items:end; }
+  @media (min-width:780px){ .contact{ grid-template-columns:1.1fr 0.9fr; } }
+  .channels{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .channels li{ display:grid; grid-template-columns:7rem 1fr; gap:16px; padding-block:12px; border-top:1px solid var(--line); align-items:baseline; }
+  .channels li:last-child{ border-bottom:1px solid var(--line); }
+  .channels .k{ font-family:var(--mono); font-size:0.7rem; color:var(--accent); }
+  .channels .v{ font-size:1rem; user-select:all; overflow-wrap:anywhere; min-width:0; }
+
+  footer{ padding-block:22px 40px; }
+  footer .wrap{ display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; font-size:0.7rem; color:var(--accent); }
+  ::selection{ background:var(--oxide); color:#fff; }
+  @media (prefers-reduced-motion:no-preference){
+    .hero canvas{ animation:fade 1.6s ease-out both; }
+    @keyframes fade{ from{ opacity:0.15; } to{ opacity:1; } }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="name" href="#top">Armando Maravilla</a>
+    <ul class="mono">
+      <li><a href="#acerca">Acerca</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="topo" aria-hidden="true"></canvas>
+  <div class="veil"></div>
+  <div class="wrap hero-inner">
+    <p class="coord mono">19.369990° N, 99.225685° O — Ciudad de México</p>
+    <h1>Paisaje, fotografía y las <em>huellas anónimas</em> de la ciudad.</h1>
+    <p class="sub">Arquitecto paisajista y cronista visual de la Ciudad de México. Diseño paisajes y fotografío lo que casi nadie mira.</p>
+    <a class="jump mono" href="#proyectos">Ver el mapa de proyectos ↓</a>
+  </div>
+</header>
+
+<section id="acerca">
+  <div class="wrap about">
+    <div class="stack">
+      <span class="eyebrow mono">acerca de mí</span>
+      <h2>Crecí mirando una barranca.</h2>
+      <p class="prose">Soy arquitecto paisajista formado en la UNAM. Las coordenadas de esta página marcan un punto en una de las barrancas del poniente de la Ciudad de México, donde nací y crecí. Ver ese paisaje todos los días me enseñó a leer el territorio desde otro lugar.</p>
+      <p class="prose">Buena parte de mi trabajo ha sido en la escala urbana. Durante siete años dirigí el área de proyectos de <strong>Soluciones Ambientales Yaax</strong>, y desde 2025 trabajo de forma independiente con mi propio estudio de paisaje.</p>
+      <p class="prose">Con la fotografía y el diseño gráfico he documentado las ciudades que recorro, fijándome en lo que pasa desapercibido: los pisos, las grietas, las plantas que crecen solas y las huellas que dejan autores anónimos. Más que documentar, me interesa <strong>interpretar</strong> esos elementos dentro de su contexto histórico, político y cultural. Desde esa mirada he empezado a experimentar en la calle con la vegetación, el arte urbano y los materiales.</p>
+      <p class="prose">Este sitio reúne ese recorrido, que sigue en movimiento, y muestra cómo cada proyecto se conecta con los demás.</p>
+      <ul class="facts">
+        <li><span class="k">estudio</span><span>Armando Maravilla Estudio de Paisaje</span></li>
+        <li><span class="k">cofundador</span><span>Nativas de las Calles · Baldío Laboratorio de Paisaje</span></li>
+        <li><span class="k">formación</span><span>Arquitectura de Paisaje, UNAM</span></li>
+      </ul>
+    </div>
+    <figure class="portrait">
+      <img src="retrato-barranca.jpg" alt="Armando Maravilla sentado sobre un muro de concreto en una barranca del poniente de la Ciudad de México, con ramas secas detrás y casas en la ladera" width="1084" height="724">
+      <figcaption class="mono">Barrancas del poniente, Ciudad de México · foto: Marisol Cid</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="wrap">
+    <div class="map-head">
+      <div>
+        <span class="eyebrow mono">lo que hago</span>
+        <h2>Mapa de proyectos</h2>
+      </div>
+      <ul class="legend mono" aria-label="Leyenda">
+        <li><span class="dot prep"></span>página en preparación</li>
+        <li><span class="dot ext"></span>enlace externo</li>
+      </ul>
+    </div>
+
+    <div class="area">
+      <div class="area-label">
+        <h3>Diseño de Paisaje</h3>
+        <span class="count">6 proyectos</span>
+        <p class="prose">Jardines y espacios urbanos que parten de entender el sitio: su suelo, su agua y lo que ya crece ahí. En cada proyecto procuro usar especies nativas, restaurar el suelo y manejar el agua de lluvia.</p>
+        <figure class="portrait">
+          <img src="paisaje-casa-panteones.jpg" alt="Jardín de Casa Panteones con pastos, una salvia de flores rojas y rocas volcánicas frente a un muro de piedra" width="1050" height="656" style="aspect-ratio:16/10">
+          <figcaption class="mono">Jardines Casa Panteones, Tepoztlán · experimentación con semillas de especies nativas</figcaption>
+        </figure>
+      </div>
+      <ul class="plist">
+        <li><span class="dot"></span><span class="t">Edificio de departamentos en Río Churubusco<small>Ciudad de México · arquitectura de Javier Cruz</small></span></li>
+        <li><span class="dot"></span><span class="t">Jardines Casa Panteones<small>Tepoztlán · arquitectura de Estudio Libre · experimentación con semillas nativas</small><span class="d">Jardín donde experimento con semillas de especies nativas para observar cuáles logran establecerse por sí solas.</span></span></li>
+        <li><span class="dot"></span><span class="t">Jardines Casa Barranco<small>Tepoztlán · con Armando Pandolfi</small><span class="d">Concepto “La piedra que recuerda”: un escarpe de roca natural toma protagonismo sobre la alberca, los tecorrales unifican el jardín y la vegetación habla del tiempo geológico.</span></span></li>
+        <li><span class="dot"></span><span class="t">Jardín Fundación Espinosa Rugarcía<small>Colonia Campestre, CDMX</small><span class="d">Sotobosque para un jardín de árboles grandes: más de 1,300 plantas en módulos asimétricos, con mejora de suelo con tezontle y tepojal, y piedra volcánica. Plantado en 2026.</span></span></li>
+        <li><span class="dot"></span><span class="t">Paisaje en Pabellón FYJA<small>Festival de Flores y Jardines 2026 · arquitectura de Luis Young</small><span class="d">Diseño del paisaje del pabellón. También formé parte del comité arquitectónico del festival: recorridos, mapas y mesas de diálogo.</span></span></li>
+        <li><span class="dot"></span><span class="t">Siete años en Soluciones Ambientales Yaax<small>Experiencia y experimentación en proyectos urbanos</small><span class="d">Siete años dirigiendo el área de proyectos, con intervenciones urbanas de gran escala como los camellones de la Ciudad de México.</span></span></li>
+      </ul>
+    </div>
+
+    <div class="area" data-c="oxide">
+      <div class="area-label">
+        <h3>Cartografía de lo Cotidiano</h3>
+        <span class="count">8 proyectos</span>
+        <p class="prose">Mapas, síntesis gráficas y registros visuales de la vida urbana, donde lo anónimo y lo cotidiano se vuelven materia de interpretación. Una forma de ver la ciudad a través de mis ojos.</p>
+        <figure class="portrait">
+          <img src="cartografia-pisos-y-pasos.jpg" alt="Pósters impresos de De Pisos y Pasos: Guadalajara, con dibujos de mosaicos en azul y un mapa del centro de Guadalajara en rojo" width="768" height="480" style="aspect-ratio:16/10">
+          <figcaption class="mono">De Pisos y Pasos: Guadalajara · pósters impresos</figcaption>
+        </figure>
+      </div>
+      <ul class="plist">
+        <li class="prep"><span class="dot prep"></span><span class="t">Pisos y Pasos: Guadalajara<span class="d">Registro fotográfico de los pavimentos de Guadalajara convertido en dos pósters: cada piso dibujado con sus coordenadas, y un mapa para encontrarlos.</span></span><span class="s">en preparación</span></li>
+        <li><span class="dot"></span><span class="t">Aquí pasaba un río: Memorias del Río Mixcoac<small>Open House 2026</small></span></li>
+        <li><span class="dot"></span><span class="t">Los autores anónimos de la ciudad<small>Arte Abierto</small><span class="d">Charla sobre lo que la gente construye y modifica en la ciudad sin firmarlo: la diferencia entre lo anónimo y lo invisible, y la mirada como método.</span></span></li>
+        <li><span class="dot"></span><span class="t">Arquitectura de la grieta<small>Sala de Arte Público Siqueiros</small></span></li>
+        <li><span class="dot"></span><span class="t">Síntesis gráfica de la Colonia Industrial<small>Proyector · Aniversario 100</small><span class="d">Conversatorio dentro del programa del centenario de la colonia, octubre de 2026.</span></span></li>
+        <li><span class="dot"></span><span class="t">Lo que crece entre las vías<small>Taller Mini Domingo · Museo Jumex</small><span class="d">Taller para niñas y niños de 7 a 14 años: recorrer las antiguas vías del tren junto al museo y dibujar las plantas, materiales y grietas que persisten.</span></span><span class="s">en proceso</span></li>
+        <li><span class="dot"></span><span class="t">Mapa botánico del Museo Jumex<small>con el equipo editorial del museo</small><span class="d">Tríptico que muestra las especies del entorno del museo según dónde crecen: camellón, jardineras y las antiguas vías del tren.</span></span><span class="s">en proceso</span></li>
+        <li><span class="dot"></span><span class="t">Archivo Vivo: fotografías de la Ciudad de México<small>con Alessandro Musseta</small><span class="d">Archivo de 657 fotografías urbanas organizado en un índice temático de cuatro capas.</span></span><span class="s">en proceso</span></li>
+      </ul>
+    </div>
+
+    <div class="area" data-c="leaf">
+      <div class="area-label">
+        <h3>Nativas de las Calles</h3>
+        <span class="count">desde 2024 · con Arath Macías</span>
+        <p class="prose">El proyecto que cofundé con el biólogo Arath Macías para que la gente reconozca y nombre las plantas que crecen solas en las banquetas. Aquí cuento mi parte como creador y coordinador creativo.</p>
+        <figure class="portrait">
+          <img src="nativas-carteles.jpg" alt="La ilustradora Lolbé pega carteles de plantas nativas, como la campanilla morada y el chicalote, en un muro de la ciudad" width="768" height="480" style="aspect-ratio:16/10">
+          <figcaption class="mono">La ilustradora Lolbé pegando carteles en la calle</figcaption>
+        </figure>
+        <a class="out mono" href="https://www.nativasdelascalles.com">nativasdelascalles.com ↗</a>
+      </div>
+      <ul class="plist">
+        <li><span class="dot"></span><span class="t">Edición 1: Los pósters en las calles<small>2024 · 45 ilustraciones, más de 600 carteles en la calle</small><span class="d">Ilustraciones botánicas pegadas en la calle en plena temporada electoral, para que la gente reconozca y nombre las plantas que crecen en las banquetas.</span></span></li>
+        <li><span class="dot"></span><span class="t">Edición 2: Mural en La Chicha<small>CCEMx · intervención de paisaje</small><span class="d">Mural con 16 ilustraciones y jardineras sembradas con especies nativas, para que las plantas ilustradas y las vivas compartan el mismo espacio.</span></span></li>
+        <li><span class="dot"></span><span class="t">Edición 3: Las plantas en entornos urbanos<small>Espacio Cinco · Abierto de Diseño 2025</small><span class="d">Exposición de 6 ilustraciones sobre la flora que crece en la ciudad.</span></span></li>
+        <li><span class="dot"></span><span class="t">Fanzine: Nativas de las lluvias<small>2025 · con la ilustradora Lolbé</small><span class="d">Mi parte: edición y armado.</span></span></li>
+        <li><span class="dot"></span><span class="t">Fanzine: Cempasúchiles nativos<small>2025 · con Caos Ilustrado</small><span class="d">Mi parte: gestión, investigación y producción.</span></span></li>
+        <li><span class="dot"></span><span class="t">Trayectos vegetales<small>Bosque de Chapultepec · Parque Teololco · Museo Carrillo Gil · colonia Roma</small><span class="d">Recorridos guiados para observar la flora nativa que crece en parques, museos y calles.</span></span></li>
+        <li><span class="dot"></span><span class="t">Safari de plantas<small>Colonia San Rafael · Open House CDMX 2026</small><span class="d">Recorrido ilustrado por las plantas de la colonia.</span></span></li>
+      </ul>
+    </div>
+
+    <div class="area">
+      <div class="area-label">
+        <h3>Publicaciones y prensa</h3>
+        <span class="count">2 textos · 3 entrevistas · 1 nota</span>
+        <p class="prose">Textos propios, entrevistas y notas sobre plantas, paisaje y vida urbana. Cada entrada lleva directo a la publicación original.</p>
+      </div>
+      <ul class="plist">
+        <li><span class="dot ext"></span><span class="t"><a href="https://labrujula.nexos.com.mx/la-ciudad-de-mexico-sin-palmeras/">La Ciudad de México sin palmeras</a><small>Nexos · La Brújula · 2022</small><span class="d">Por qué las palmeras de la ciudad están enfermando, y por qué la reforestación debería apostar por especies nativas.</span></span><span class="s">↗ leer en Nexos</span></li>
+        <li><span class="dot ext"></span><span class="t"><a href="https://www.landuum.com/author/arqpsarmando/">Columna Plantae</a><small>Landuum Paisajismo · todos mis textos</small><span class="d">Textos sobre especies y paisaje para la sección Plantae.</span></span><span class="s">↗ leer en Landuum</span></li>
+        <li><span class="dot"></span><span class="t">Entrevista: dalias silvestres<small><a href="https://pleasantplace.space/">Pleasant Place</a> · edición impresa, número por confirmar</small><span class="d">Conversación sobre las dalias silvestres (Dahlia coccinea).</span></span><span class="s">solo en papel</span></li>
+        <li><span class="dot ext"></span><span class="t"><a href="https://elpais.com/mexico/2023-05-09/si-la-cal-que-rodea-los-arboles-de-la-ciudad-de-mexico-no-sirve-de-nada-por-que-seguimos-utilizandola.html">Si la cal que rodea los árboles no sirve de nada, ¿por qué seguimos utilizándola?</a><small>Entrevista · El País · 2023</small><span class="d">“Unificar la diversidad de árboles con este color blanco es como tratar a los seres vivos como si fueran parte del mobiliario urbano.”</span></span><span class="s">↗ leer</span></li>
+        <li><span class="dot ext"></span><span class="t"><a href="https://youtube.com/shorts/BdJxsrAyMss">Meximalismo</a><small>Entrevista en video · N+ · 2026</small><span class="d">Sobre el meximalismo y la observación de la estética cotidiana de la ciudad.</span></span><span class="s">↗ ver</span></li>
+        <li><span class="dot ext"></span><span class="t"><a href="https://www.lajornadadeoriente.com.mx/noticias/cultura/nativas-de-las-calles-proyecto-que-vincula-ciencia-arte-y-ciudadania/">Nativas de las Calles, proyecto que vincula ciencia, arte y ciudadanía</a><small>Nota · La Jornada de Oriente · 2025</small></span><span class="s">↗ leer</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="equipo">
+  <div class="wrap team">
+    <div class="stack">
+      <span class="eyebrow mono">equipo</span>
+      <h2>Con quién trabajo</h2>
+      <p class="prose">Ningún proyecto de este mapa lo hice solo. Estas son las personas que me acompañan de forma constante.</p>
+    </div>
+    <ul class="people">
+      <li><span class="n">Marlon Mejía</span><span class="r">dibujo y desarrollo de proyectos · ilustración</span>
+        <p>Dibuja y desarrolla conmigo los proyectos de paisaje: lleva las ideas de diseño a planos, fichas técnicas, mapas e ilustraciones.</p></li>
+      <li><span class="n">Arath Macías</span><span class="r">biólogo · soporte botánico</span>
+        <p>Acompaña la selección de especies y la investigación botánica de los proyectos. Cofundamos juntos Nativas de las Calles.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap contact">
+    <div class="stack">
+      <span class="eyebrow mono">contacto</span>
+      <h2>Para proyectos, colaboraciones o una caminata.</h2>
+      <p class="prose">Escríbeme si te interesa trabajar juntos, invitarme a una charla o saber más de alguno de estos proyectos.</p>
+    </div>
+    <ul class="channels">
+      <li><span class="k">correo</span><span class="v">armandomaravillapaisaje@gmail.com</span></li>
+      <li><span class="k">instagram</span><span class="v"><a href="https://www.instagram.com/armando_maravilla_/">@armando_maravilla_</a></span></li>
+      <li><span class="k">x</span><span class="v"><a href="https://x.com/wonder_m_r">@wonder_m_r</a></span></li>
+      <li><span class="k">tiktok</span><span class="v"><a href="https://www.tiktok.com/@wonder_m_r">@wonder_m_r</a></span></li>
+      <li><span class="k">base</span><span class="v">Ciudad de México</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap mono">
+    <span>Armando Maravilla · Estudio de Paisaje</span>
+    <span>Ciudad de México · 2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const cv=document.getElementById('topo'); if(!cv) return;
+  const hero=cv.parentElement;
+  function hash(i,j){ let h=Math.imul(i,374761393)+Math.imul(j,668265263)+1977; h=Math.imul(h^(h>>>13),1274126177); return ((h^(h>>>16))>>>0)/4294967295; }
+  function sm(t){ return t*t*(3-2*t); }
+  function noise(x,y){ const i=Math.floor(x), j=Math.floor(y), fx=sm(x-i), fy=sm(y-j);
+    const a=hash(i,j), b=hash(i+1,j), c=hash(i,j+1), d=hash(i+1,j+1);
+    return a+(b-a)*fx+(c-a)*fy+(a-b-c+d)*fx*fy; }
+  function fbm(x,y){ let v=0,a=0.5,f=1; for(let o=0;o<5;o++){ v+=a*noise(x*f,y*f); f*=2.03; a*=0.5; } return v; }
+  function rnd(n){ return hash(n,7331); }
+  // eje de la barranca: serpentea de arriba a abajo
+  function axis(y,W){ return W*0.66 + Math.sin(y*0.009)*W*0.05 + Math.sin(y*0.021+1.3)*W*0.02; }
+  function field(x,y,W){ const d=Math.abs(x-axis(y,W)); const w=Math.max(170,W*0.17);
+    return fbm(x/300+3.1,y/300+7.4)*1.15 + 0.85*Math.min(d/w,1.6) + (d<w*0.25?0:0); }
+  function css(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  function draw(){
+    const W=cv.clientWidth, H=cv.clientHeight, dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+    const ctx=cv.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
+    const ink=css('--ink')||'#1D3A52', oxide=css('--oxide')||'#C15A34', dim=css('--ink-dim')||'#5C7488';
+    const s=5, nx=Math.ceil(W/s)+1, ny=Math.ceil(H/s)+1, F=new Float32Array(nx*ny);
+    let mn=1e9,mx=-1e9;
+    const VW=Math.max(W,1100), off=(VW-W)*0.62;
+    for(let j=0;j<ny;j++) for(let i=0;i<nx;i++){ const v=field(i*s+off,j*s,VW); F[j*nx+i]=v; if(v<mn)mn=v; if(v>mx)mx=v; }
+    const step=(mx-mn)/34;
+    for(let k=1;k<34;k++){
+      const L=mn+k*step, major=(k%5===0);
+      ctx.beginPath();
+      for(let j=0;j<ny-1;j++) for(let i=0;i<nx-1;i++){
+        const a=F[j*nx+i], b=F[j*nx+i+1], c=F[(j+1)*nx+i+1], d=F[(j+1)*nx+i];
+        const idx=(a>L?8:0)|(b>L?4:0)|(c>L?2:0)|(d>L?1:0);
+        if(idx===0||idx===15) continue;
+        const x=i*s, y=j*s;
+        const T=[x+s*(L-a)/(b-a), y], R=[x+s, y+s*(L-b)/(c-b)], B=[x+s*(L-d)/(c-d), y+s], Lf=[x, y+s*(L-a)/(d-a)];
+        const seg=(p,q)=>{ ctx.moveTo(p[0],p[1]); ctx.lineTo(q[0],q[1]); };
+        switch(idx){
+          case 1: case 14: seg(Lf,B); break;
+          case 2: case 13: seg(B,R); break;
+          case 3: case 12: seg(Lf,R); break;
+          case 4: case 11: seg(T,R); break;
+          case 5: seg(Lf,T); seg(B,R); break;
+          case 6: case 9: seg(T,B); break;
+          case 7: case 8: seg(Lf,T); break;
+          case 10: seg(T,R); seg(Lf,B); break;
+        }
+      }
+      ctx.strokeStyle=ink; ctx.globalAlpha=major?0.62:0.26; ctx.lineWidth=major?1.5:0.7; ctx.lineJoin='round'; ctx.stroke();
+    }
+    // senderos punteados
+    ctx.globalAlpha=0.35; ctx.strokeStyle=dim; ctx.lineWidth=0.9; ctx.setLineDash([5,5]);
+    [[0.05,0.92,0.3],[0.2,0.1,0.85]].forEach((t,n)=>{ ctx.beginPath();
+      for(let q=0;q<=60;q++){ const u=q/60; const x=W*(t[0]+(t[1]-t[0])*u)+Math.sin(u*6+n)*30; const y=H*(n?u:t[2]+Math.sin(u*4)*0.25); q?ctx.lineTo(x,y):ctx.moveTo(x,y);} ctx.stroke(); });
+    // cauce de la barranca
+    ctx.globalAlpha=0.7; ctx.strokeStyle=oxide; ctx.lineWidth=1.3; ctx.setLineDash([7,4]); ctx.beginPath();
+    for(let y=0;y<=H;y+=4){ const x=axis(y,VW)-off+Math.sin(y*0.05)*4; y?ctx.lineTo(x,y):ctx.moveTo(x,y); } ctx.stroke(); ctx.setLineDash([]);
+    // cruces de referencia
+    ctx.globalAlpha=0.5; ctx.strokeStyle=dim; ctx.lineWidth=1;
+    for(let n=0;n<Math.round(W/110);n++){ const x=rnd(n)*W, y=rnd(n+90)*H; ctx.beginPath(); ctx.moveTo(x-5,y); ctx.lineTo(x+5,y); ctx.moveTo(x,y-5); ctx.lineTo(x,y+5); ctx.stroke(); }
+    // casas en las laderas
+    ctx.fillStyle=dim;
+    for(let n=0;n<10;n++){ const cx=rnd(n+300)*W, cy=rnd(n+400)*H;
+      for(let m=0;m<4;m++){ const r=rnd(n*13+m+500); const z=r>0.7?6:3; ctx.globalAlpha=0.35+r*0.25; ctx.fillRect(cx+(rnd(n*7+m+600)-0.5)*40, cy+(rnd(n*5+m+700)-0.5)*30, z, z); } }
+    ctx.globalAlpha=1;
+  }
+  let t; const go=()=>{ clearTimeout(t); t=setTimeout(draw,120); };
+  draw(); window.addEventListener('resize',go);
+  if(window.ResizeObserver) new ResizeObserver(go).observe(hero);
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+  new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+})();
+</script>
+
+</body></html>
